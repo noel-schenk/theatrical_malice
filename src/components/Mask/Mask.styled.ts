@@ -1,7 +1,8 @@
 import styled from "styled-components";
+import { MASK_HEIGHT, MASK_WIDTH } from "../consts";
 
 export const MaskWrapper = styled.div`
-  width: 1024px;
-  height: 1024px;
+  width: ${MASK_WIDTH}px;
+  height: ${MASK_HEIGHT}px;
   background: #be4747;
 `;
