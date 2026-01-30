@@ -1,7 +1,12 @@
 import styled from "styled-components";
 
 export const MaskWrapper = styled.div`
-  width: 1024px;
-  height: 1024px;
-  background: #be4747;
+  width: 256px;
+  height: 256px;
+  position: relative;
+
+  img {
+    width: 256px;
+    height: 256px;
+  }
 `;

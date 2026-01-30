@@ -1,11 +1,17 @@
 import type { FC } from 'react';
 import { MaskWrapper } from './Mask.styled';
+import type { MaskDefinition } from '../../models/MaskDefinition';
+import MaskFeature from '../MaskFeature/MaskFeature';
 
-interface MaskProps {}
+interface MaskProps {
+   id: number,
+   maskDefinition: MaskDefinition
+}
 
-const Mask: FC<MaskProps> = () => (
+const Mask: FC<MaskProps> = (props) => (
  <MaskWrapper>
-    Mask Component
+   <img src={props.maskDefinition.url} alt=""></img>
+   {props.maskDefinition.features.map((feature) => <MaskFeature feature={feature}></MaskFeature>)}
  </MaskWrapper>
 );
 
