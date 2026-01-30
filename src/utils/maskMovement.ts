@@ -1,11 +1,7 @@
 import { random, sample } from "lodash-es";
 import { Vec2 } from "../models/Vec2";
 import {
-  MASK_HEIGHT,
-  MASK_WIDTH,
-  PLAYINGFIELD_HEIGHT,
   PLAYINGFIELD_HEIGHT_WITHOUT_MASK,
-  PLAYINGFIELD_WIDTH,
   PLAYINGFIELD_WIDTH_WITHOUT_MASK,
 } from "../components/consts";
 

@@ -1,4 +1,4 @@
-import { useEffect, useRef, type FC, type Ref, type RefObject } from "react";
+import { useEffect, useRef, type FC } from "react";
 import { ScreenWrapper } from "./Screen.styled";
 import Playingfield from "../Playingfield/Playingfield";
 import createPanZoom from "panzoom";

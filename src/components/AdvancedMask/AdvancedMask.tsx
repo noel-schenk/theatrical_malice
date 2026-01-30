@@ -1,4 +1,4 @@
-import { useEffect, useState, type FC } from "react";
+import { useState, type FC } from "react";
 import { AdvancedMaskWrapper } from "./AdvancedMask.styled";
 import Mask from "../Mask/Mask";
 import { defaultMaskMovement } from "../../utils/maskMovement";
