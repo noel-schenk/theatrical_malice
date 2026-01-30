@@ -24,7 +24,9 @@ const AdvancedMask: FC<MAdvancedMaskProps> = ({ id, spawnPosition }) => {
 
   return (
     <AdvancedMaskWrapper
-      style={{ left: `${maskPosition.x}px`, bottom: `${maskPosition.y}px` }}
+      style={{
+        transform: `translate3d(${maskPosition.x}px, ${maskPosition.y}px, 0)`,
+      }}
     >
       <Mask id={id} />
     </AdvancedMaskWrapper>

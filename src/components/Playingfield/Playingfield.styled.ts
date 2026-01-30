@@ -5,4 +5,5 @@ export const PlayingfieldWrapper = styled.div`
   position: relative;
   height: ${PLAYINGFIELD_HEIGHT}px;
   width: ${PLAYINGFIELD_WIDTH}px;
+  contain: strict;
 `;
