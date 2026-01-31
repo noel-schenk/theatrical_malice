@@ -24,6 +24,11 @@ const PlayerCreation: FC<PlayerCreationProps> = () => {
           <CardContent>
             <div className="flex flex-col gap-4">
               <div className="typography">
+                <h1>Theatrical Malice</h1>
+                <p>
+                  Welcome to Theatrical Malice try to find your friends before
+                  they find you!
+                </p>
                 <h2>Create your character</h2>
               </div>
               <div className="flex flex-col gap-4">

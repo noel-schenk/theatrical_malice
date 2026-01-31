@@ -22,6 +22,7 @@ export const initialPlayingfieldHost = () => {
     advancedMaskProperty: advancedMaskProperty,
     maskUUID: getUUID(),
     found: false,
+    name: '',
   }))
 }
 
