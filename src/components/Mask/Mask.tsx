@@ -22,6 +22,7 @@ const Mask: FC<MaskProps> = (props) => {
     if (!context) return;
 
     (async () => {
+      context.clearRect(0, 0, MASK_WIDTH, MASK_HEIGHT);
       context.drawImage(images[Face], 0, 0, MASK_WIDTH, MASK_HEIGHT);
   
       context.drawImage(images[props.maskDefinition.url], 0, 0, MASK_WIDTH, MASK_HEIGHT);
