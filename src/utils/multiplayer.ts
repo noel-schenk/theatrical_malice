@@ -19,6 +19,22 @@ export const gameHasStarted = () => {
 }
 
 export const playerFound = (playerUUID: string) => {
+  console.log(mainState.players, 'mainState.players')
+
+  if (
+    mainState.players.filter(
+      player => player.found === false && !isNil(player.playerUUID)
+    ).length <= 1 &&
+    mainState.gameState !== 'start'
+  )
+    if (
+      mainState.players.filter(
+        player =>
+          player.found === false && player.playerUUID === mainState.playerUUID
+      ).length > 0
+    )
+      mainState.showNavigation = 'won'
+
   if (!mainState.isHost) return
 
   mainState.players = mainState.players.map(player => {
@@ -165,17 +181,6 @@ export const sync = () => {
       gameState: mainState.gameState,
     })
   )
-
-  console.log(mainState.players, 'mainState.players')
-
-  if (
-    mainState.players.filter(
-      player => player.found === false && !isNil(player.playerUUID)
-    ).length <= 1 &&
-    mainState.gameState !== 'start'
-  ) {
-    mainState.showNavigation = 'won'
-  }
 }
 
 export const requestMask = () => {
