@@ -2,7 +2,7 @@ import { MaskFeatureType } from "../models/MaskFeatureDefinition";
 
 const createFeature = (type: MaskFeatureType) => (image: string) => ({
     url: image,
-    name: image.split('/').pop(),
+    name: image.split('/').pop()?.split('.')[0],
     type
 });
 

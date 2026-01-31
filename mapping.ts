@@ -1,0 +1,67 @@
+const decorations = {
+    'Crack': '',
+    'Moustache': ''
+};
+
+const ears = {
+    'Hase_Ohr': '',
+    'LeftEarBlueAlienMask': '',
+    'LeftEarBlueCatMask': '',
+    'LeftEarBlueRonaldMask': '',
+    'LeftEarLongBlueClownMask': '',
+    'LeftEarLongPinkClownMask': '',
+    'LeftEarLongRedClownMask': '',
+    'LeftEarLongYellowClownMask': '',
+    'LeftEarPinkAlienMask': '',
+    'LeftEarPinkCatMask': '',
+    'LeftEarPinkRonaldMask': '',
+    'LeftEarRabbitMask': '',
+    'LeftEarRedAlienMask': '',
+    'LeftEarRedCatMask': '',
+    'LeftEarRedRonaldMask': '',
+    'LeftEarRobotMask': '',
+    'LeftEarShortBlueClownMask': '',
+    'LeftEarShortPinkClownMask': '',
+    'LeftEarShortRedClownMask': '',
+    'LeftEarShortYellowClownMask': '',
+    'LeftEarSignalRobotMask': '',
+    'LeftEarYellowAlienMask': '',
+    'LeftEarYellowCatMask': '',
+    'LeftEarYellowRonaldMask': '',
+    'NinjaMaskTopLeft': '',
+};
+
+const noses = {
+    'Hase_Schnauze': '',
+    'NoseAlienMask': '',
+    'NoseBlueAlienMask': '',
+    'NoseBlueCatMask': '',
+    'NoseBlueClownMask': '',
+    'NoseBlueRonaldMask': '',
+    'NosePinkAlienMask': '',
+    'NosePinkCatMask': '',
+    'NosePinkClownMask': '',
+    'NosePinkRobotMask': '',
+    'NosePinkRonaldMask': '',
+    'NoseRabbitMask': '',
+    'NoseRedAlienMask': '',
+    'NoseRedCatMask': '',
+    'NoseRedClownMask': '',
+    'NoseRedRobotMask': '',
+    'NoseRedRonaldMask': '',
+    'NoseYellowAlienMask': '',
+    'NoseYellowCatMask': '',
+    'NoseYellowClownMask': '',
+    'NoseYellowRonaldMask': '',
+};
+
+const masks = {
+    'AlienMask': 'Alienmaske',
+    'CatMask': 'Fledermausmaske',
+    'ClownMask': 'Clownsmaske',
+    'Hase_Maske': 'Eichhörnchenmaske',
+    'NinjaMask': 'Ninjamaske',
+    'RabbitMask': 'Hasenmaske',
+    'RobotMask': 'Steinmaske',
+    'RonaldMask': 'Entenaugenmaske',
+};
