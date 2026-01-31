@@ -1,24 +1,35 @@
-import type { FC } from "react";
+import { useEffect, type FC } from "react";
 import { PlayingfieldWrapper } from "./Playingfield.styled";
 import AdvancedMask from "../AdvancedMask/AdvancedMask";
-import { Vec2 } from "../../models/Vec2";
-import { initialMaskDistribution } from "../../utils/maskDistribution";
+import { useSnapshot } from "valtio";
+import { mainState } from "@/state/mainState";
+import {
+  initialPlayingfieldHost,
+  updatePlayingfieldHost,
+} from "./PlayingfieldHost";
 
 interface PlayingfieldProps {}
 
 const Playingfield: FC<PlayingfieldProps> = () => {
-  const advancedMaskPositions = initialMaskDistribution(600);
+  const mainSnap = useSnapshot(mainState, { sync: true });
+
+  useEffect(() => {
+    initialPlayingfieldHost();
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      updatePlayingfieldHost();
+    }, 2000);
+    return () => clearInterval(interval);
+  });
 
   return (
     <PlayingfieldWrapper>
-      {advancedMaskPositions.map((advancedMaskPosition, index) => (
+      {mainSnap.advancedMaskProperties.map((advancedMaskProperty) => (
         <AdvancedMask
-          key={index}
-          id={20}
-          velocityInput={new Vec2(0, 0)}
-          spawnPosition={
-            new Vec2(advancedMaskPosition.x, advancedMaskPosition.y)
-          }
+          {...advancedMaskProperty}
+          maskDefinition={{ ...advancedMaskProperty.maskDefinition } as any}
         />
       ))}
     </PlayingfieldWrapper>

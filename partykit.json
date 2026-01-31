@@ -1,6 +1,7 @@
 {
   "$schema": "https://www.partykit.io/schema.json",
-  "name": "theatrical_malice-party",
+  "name": "theatrical-malice-party",
   "main": "party/index.ts",
-  "compatibilityDate": "2026-01-30"
+  "compatibilityDate": "2026-01-30",
+  "port": 1984
 }

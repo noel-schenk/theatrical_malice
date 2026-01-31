@@ -1,34 +1,44 @@
-import { useState, type FC } from "react";
+import { useEffect, useState, type FC } from "react";
 import { AdvancedMaskWrapper } from "./AdvancedMask.styled";
 import Mask from "../Mask/Mask";
-import { defaultMaskMovement } from "../../utils/maskMovement";
-import type { Vec2 } from "../../models/Vec2";
-import { useTick } from "../../utils/tick";
+import { Vec2 } from "../../models/Vec2";
+import { random } from "lodash-es";
+import type { MaskDefinition } from "@/models/MaskDefinition";
 
 interface MAdvancedMaskProps {
   id: number;
   velocityInput: Vec2;
-  spawnPosition: Vec2;
+  position: Vec2;
+  maskDefinition: MaskDefinition;
 }
 
-const AdvancedMask: FC<MAdvancedMaskProps> = ({ id, spawnPosition }) => {
-  const [maskPosition, setMaskPosition] = useState(spawnPosition);
-
-  useTick(
-    () => {
-      const defaultMovement = defaultMaskMovement(maskPosition);
-      setMaskPosition(defaultMovement);
-    },
-    { every: 20, random: true },
+const AdvancedMask: FC<MAdvancedMaskProps> = ({
+  id,
+  position,
+  maskDefinition,
+}) => {
+  const [delayedPositionUpdate, setDelayedPositionUpdate] = useState(
+    new Vec2(),
   );
+
+  useEffect(() => {
+    const timeout = setTimeout(
+      () => {
+        setDelayedPositionUpdate(position);
+      },
+      random(0, 2000, false),
+    );
+
+    return () => clearTimeout(timeout);
+  }, [position]);
 
   return (
     <AdvancedMaskWrapper
       style={{
-        transform: `translate3d(${maskPosition.x}px, ${maskPosition.y}px, 0)`,
+        transform: `translate3d(${delayedPositionUpdate.x}px, ${delayedPositionUpdate.y}px, 0)`,
       }}
     >
-      <Mask id={id} />
+      <Mask id={id} maskDefinition={maskDefinition} />
     </AdvancedMaskWrapper>
   );
 };
