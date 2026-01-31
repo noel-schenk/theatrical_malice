@@ -44,7 +44,9 @@ const Lobby: FC<LobbyProps> = () => {
               <div className="flex flex-col gap-4">
                 <Input
                   placeholder="Lobby name"
-                  value={mainSnap.lobbyName}
+                  value={mainSnap.lobbyName
+                    .replaceAll(' ', '')
+                    .replaceAll('%', '')}
                   onChange={ev => (mainState.lobbyName = ev.target.value)}
                 />
                 <Button
