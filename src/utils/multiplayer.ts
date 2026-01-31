@@ -18,17 +18,31 @@ export const gameHasStarted = () => {
   // TODO: do camera stuff or else
 }
 
+const gameHasFinished = (wonPlayerUUID: string) => {
+  if (mainState.playerUUID === wonPlayerUUID) mainState.showNavigation = 'won'
+  else mainState.showNavigation = 'lost'
+}
+
 export const playerFound = (playerUUID: string) => {
   if (!mainState.isHost) return
 
   mainState.players = mainState.players.map(player => {
     if (player.playerUUID === playerUUID) player.found = true
-
     return player
   })
 
-  if (mainState.players.filter(player => player.found).length <= 1)
-    mainState.showNavigation = 'won'
+  const playerThatHaveNoYetBeenFound = mainState.players.filter(
+    player => player.found === false && !isNil(player.playerUUID)
+  )
+
+  if (
+    playerThatHaveNoYetBeenFound.length === 1 &&
+    mainState.gameState !== 'start'
+  ) {
+    const lastPlayerUUID = playerThatHaveNoYetBeenFound[0].playerUUID
+    assertTrue(!isNil(lastPlayerUUID), 'lastPlayerUUID was not found')
+    gameFinished(lastPlayerUUID)
+  }
 }
 
 const onRequestPlayers = () => {
@@ -87,6 +101,10 @@ const onFoundPlayer = (playerUUID: string) => {
   if (playerUUID === mainState.playerUUID) mainState.showNavigation = 'lost'
 }
 
+const onGameHasFinished = (playerUUID: string) => {
+  gameHasFinished(playerUUID)
+}
+
 const partyListener = () => {
   if (isNil(partyData.partySocket)) return
   partyData.partySocket.addEventListener('message', e => {
@@ -110,6 +128,8 @@ const partyListener = () => {
       case 'found_player':
         onFoundPlayer(data.playerUUID)
         break
+      case 'game_finished':
+        onGameHasFinished(data.playerUUID)
     }
   })
 }
@@ -186,6 +206,12 @@ export const requestFoundPlayer = (playerUUID: string) => {
   playerFound(playerUUID)
 }
 
+const gameFinished = (playerUUID: string) => {
+  if (isNil(partyData.partySocket)) return
+  partyData.partySocket.send(encode({ type: 'game_finished', playerUUID }))
+  gameHasFinished(playerUUID)
+}
+
 export const getLobbyList = async () => {
   const res = await fetch(
     `${import.meta.env.VITE_BACKEND_URL}/parties/main/lobby`
@@ -193,12 +219,3 @@ export const getLobbyList = async () => {
   const { rooms } = await res.json()
   mainState.lobbyList = rooms
 }
-
-// export const
-
-// partySocket.send("Hello everyone");
-
-// // print each incoming message from the server to console
-// partySocket.addEventListener("message", (e) => {
-//   console.log(e.data);
-// });
