@@ -12,8 +12,8 @@ const Mask: FC<MaskProps> = (props) => (
   <MaskWrapper>
     <img src={Face} alt=""></img>
     <img src={props.maskDefinition.url} alt=""></img>
-    {props.maskDefinition.features.map((feature) => (
-      <MaskFeature feature={feature}></MaskFeature>
+    {props.maskDefinition.features.map((feature, index) => (
+      <MaskFeature key={index} feature={feature}></MaskFeature>
     ))}
   </MaskWrapper>
 );
