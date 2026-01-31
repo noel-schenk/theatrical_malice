@@ -9,5 +9,6 @@ export const MaskWrapper = styled.div`
   img {
     width: ${MASK_WIDTH}px;
     height: ${MASK_HEIGHT}px;
+    position: absolute;
   }
 `;
