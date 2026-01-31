@@ -1,9 +1,10 @@
-import type { PlayerType } from '@/models/Player'
+import type { PlayerType } from '@/models/PlayerType'
 import { mainState } from '@/state/mainState'
 import { requestFoundPlayer } from '@/utils/multiplayer'
 import { playerHasBeenFound } from '@/utils/playerHasBeenFound'
+import { useTrigger } from '@/utils/useTrigger'
 
-import type { FC } from 'react'
+import { type FC } from 'react'
 
 import { isNil } from 'lodash-es'
 import { toast } from 'sonner'
@@ -15,20 +16,31 @@ interface PlayerProps {
   player: PlayerType
 }
 
-const Player: FC<PlayerProps> = ({ player }) => (
-  <PlayerWrapper>
-    <div
-      onClick={() => {
-        if (mainState.playerUUID === player.playerUUID)
-          return toast('Silly you clicked on yourself :)')
+const Player: FC<PlayerProps> = ({ player }) => {
+  const wrongPersonTrigger = useTrigger()
+  const rightPersonTrigger = useTrigger()
 
-        if (!isNil(player.playerUUID) && !playerHasBeenFound())
-          requestFoundPlayer(player.playerUUID)
-      }}
-    >
-      <AdvancedMask {...player.advancedMaskProperty} />
-    </div>
-  </PlayerWrapper>
-)
+  return (
+    <PlayerWrapper>
+      <div
+        onClick={() => {
+          if (mainState.playerUUID === player.playerUUID)
+            return toast('Silly you clicked on yourself :)')
+
+          if (!isNil(player.playerUUID) && !playerHasBeenFound()) {
+            requestFoundPlayer(player.playerUUID)
+            rightPersonTrigger()
+          } else wrongPersonTrigger()
+        }}
+      >
+        <AdvancedMask
+          {...player.advancedMaskProperty}
+          wrongPersonTrigger={wrongPersonTrigger}
+          rightPersonTrigger={rightPersonTrigger}
+        />
+      </div>
+    </PlayerWrapper>
+  )
+}
 
 export default Player

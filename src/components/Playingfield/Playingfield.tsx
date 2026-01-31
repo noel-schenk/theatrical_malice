@@ -1,4 +1,4 @@
-import type { PlayerType } from '@/models/Player'
+import type { PlayerType } from '@/models/PlayerType'
 import { mainState } from '@/state/mainState'
 
 import { type FC, useEffect } from 'react'

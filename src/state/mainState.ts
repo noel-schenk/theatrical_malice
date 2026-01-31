@@ -1,4 +1,4 @@
-import type { PlayerType } from '@/models/Player'
+import type { PlayerType } from '@/models/PlayerType'
 
 import { proxy } from 'valtio'
 
