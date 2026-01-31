@@ -124,7 +124,7 @@ const PartyWaitingroom: FC<PartyWaitingroomProps> = () => {
                     Start
                   </Button>
                   <QRCode
-                    value={`${import.meta.env.VITE_BACKEND_URL}/?lobby=${mainSnap.lobbyName}`}
+                    value={`${import.meta.env.VITE_FRONTEND_URL}/?lobby=${mainSnap.lobbyName}`}
                   />
                 </div>
               )}
