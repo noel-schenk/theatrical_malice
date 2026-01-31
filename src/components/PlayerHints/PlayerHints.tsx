@@ -19,8 +19,8 @@ const PlayerHints: FC<PlayerHintsProps> = () => {
     <PlayerHintsWrapper>
       {mainSnap.players
         .filter(player => !isNil(player.playerUUID) && player.found === false)
-        .map(player => (
-          <Avatar>
+        .map((player, index) => (
+          <Avatar key={index}>
             <AvatarFallback>
               <div style={{ transform: 'scale(0.2)' }}>
                 <Mask
