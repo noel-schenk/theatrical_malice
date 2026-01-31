@@ -23,5 +23,5 @@ export const mainState = proxy({
   connectedPlayers: [] as Array<string>,
   players: [] as Array<PlayerType>,
   playerUUID: '',
-  gameState: 'pre' as (typeof GAME_STATES)[number],
+  gameState: 'start' as (typeof GAME_STATES)[number],
 })
