@@ -19,20 +19,30 @@ export const gameHasStarted = () => {
 }
 
 export const playerFound = (playerUUID: string) => {
-  console.log(mainState.players, 'mainState.players')
-
-  if (
-    mainState.players.filter(
-      player => player.found === false && !isNil(player.playerUUID)
-    ).length <= 1 &&
-    mainState.gameState !== 'start'
+  console.log(
+    'playerFound 1',
+    mainState.players,
+    'mainState.players',
+    mainState.playerUUID
   )
-    if (
-      mainState.players.find(
-        player => player.found === false && !isNil(player.playerUUID)
-      )?.playerUUID === mainState.playerUUID
+
+  const playerNotBeenFound = mainState.players.filter(
+    player => player.found === false && !isNil(player.playerUUID)
+  )
+
+  console.log(playerNotBeenFound, 'playerNotBeenFound')
+
+  if (playerNotBeenFound.length === 1 && mainState.gameState !== 'start') {
+    console.log(
+      'playerFound 2',
+      playerNotBeenFound[0].playerUUID,
+      mainState.playerUUID
     )
+    if (playerNotBeenFound[0].playerUUID === mainState.playerUUID) {
+      console.log('playerFound 3')
       mainState.showNavigation = 'won'
+    }
+  }
 
   if (!mainState.isHost) return
 
