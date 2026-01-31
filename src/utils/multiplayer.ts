@@ -18,38 +18,31 @@ export const gameHasStarted = () => {
   // TODO: do camera stuff or else
 }
 
+const gameHasFinished = (wonPlayerUUID: string) => {
+  if (mainState.playerUUID === wonPlayerUUID) mainState.showNavigation = 'won'
+  else mainState.showNavigation = 'lost'
+}
+
 export const playerFound = (playerUUID: string) => {
-  console.log(
-    'playerFound 1',
-    mainState.players,
-    'mainState.players',
-    mainState.playerUUID
-  )
-
-  const playerNotBeenFound = mainState.players.filter(
-    player => player.found === false && !isNil(player.playerUUID)
-  )
-
-  console.log(playerNotBeenFound, 'playerNotBeenFound')
-
-  if (playerNotBeenFound.length === 1 && mainState.gameState !== 'start') {
-    console.log(
-      'playerFound 2',
-      playerNotBeenFound[0].playerUUID,
-      mainState.playerUUID
-    )
-    if (playerNotBeenFound[0].playerUUID === mainState.playerUUID) {
-      console.log('playerFound 3')
-      mainState.showNavigation = 'won'
-    }
-  }
-
   if (!mainState.isHost) return
 
   mainState.players = mainState.players.map(player => {
     if (player.playerUUID === playerUUID) player.found = true
     return player
   })
+
+  const playerThatHaveNoYetBeenFound = mainState.players.filter(
+    player => player.found === false && !isNil(player.playerUUID)
+  )
+
+  if (
+    playerThatHaveNoYetBeenFound.length === 1 &&
+    mainState.gameState !== 'start'
+  ) {
+    const lastPlayerUUID = playerThatHaveNoYetBeenFound[0].playerUUID
+    assertTrue(!isNil(lastPlayerUUID), 'lastPlayerUUID was not found')
+    gameFinished(lastPlayerUUID)
+  }
 }
 
 const onRequestPlayers = () => {
@@ -108,6 +101,10 @@ const onFoundPlayer = (playerUUID: string) => {
   if (playerUUID === mainState.playerUUID) mainState.showNavigation = 'lost'
 }
 
+const onGameHasFinished = (playerUUID: string) => {
+  gameHasFinished(playerUUID)
+}
+
 const partyListener = () => {
   if (isNil(partyData.partySocket)) return
   partyData.partySocket.addEventListener('message', e => {
@@ -131,6 +128,8 @@ const partyListener = () => {
       case 'found_player':
         onFoundPlayer(data.playerUUID)
         break
+      case 'game_finished':
+        onGameHasFinished(data.playerUUID)
     }
   })
 }
@@ -205,6 +204,12 @@ export const requestFoundPlayer = (playerUUID: string) => {
   if (isNil(partyData.partySocket)) return
   partyData.partySocket.send(encode({ type: 'found_player', playerUUID }))
   playerFound(playerUUID)
+}
+
+const gameFinished = (playerUUID: string) => {
+  if (isNil(partyData.partySocket)) return
+  partyData.partySocket.send(encode({ type: 'game_finished', playerUUID }))
+  gameHasFinished(playerUUID)
 }
 
 export const getLobbyList = async () => {
