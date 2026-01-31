@@ -7,6 +7,7 @@ import Lost from './components/Lost/Lost'
 import Music from './components/Music/Music'
 import PartyWaitingroom from './components/PartyWaitingroom/PartyWaitingroom'
 import PlayerCreation from './components/PlayerCreation/PlayerCreation'
+import PlayerHints from './components/PlayerHints/PlayerHints'
 import Screen from './components/Screen/Screen'
 import Won from './components/Won/Won'
 import { mainState } from './state/mainState'
@@ -25,6 +26,7 @@ function App() {
         <Music />
         <Screen />
         <Toaster />
+        <PlayerHints />
       </AppWrapper>
     </>
   )
