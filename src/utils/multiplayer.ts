@@ -7,6 +7,7 @@ import { mainState } from '@/state/mainState'
 
 import { isNil, sample, uniq } from 'lodash-es'
 import PartySocket from 'partysocket'
+import { toast } from 'sonner'
 
 import { assertTrue } from './assertTrue'
 
@@ -142,7 +143,14 @@ export const createParty = async () => {
   return true
 }
 
-export const joinParty = (roomName: string) => {
+export const joinParty = async (roomName: string) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_BACKEND_URL}/parties/main/lobby?check=${mainState.lobbyName}`
+  )
+  const { exists } = await res.json()
+
+  if (!exists) return toast("The party you're trying to join does not exist.")
+
   partyData.partySocket = new PartySocket({
     host: import.meta.env.VITE_BACKEND_URL,
     room: roomName,
