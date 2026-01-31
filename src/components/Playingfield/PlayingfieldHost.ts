@@ -1,9 +1,9 @@
+import { createMaskDefinition } from "@/generators/MaskDefinitionGenerator";
 import { Vec2 } from "@/models/Vec2";
 import { mainState } from "@/state/mainState";
 import { initialMaskDistribution } from "@/utils/maskDistribution";
 import { defaultMaskMovement } from "@/utils/maskMovement";
 import { sync } from "@/utils/multiplayer";
-import { chunk } from "lodash-es";
 
 export const initialPlayingfieldHost = () => {
   console.log("initialPlayingfieldHost");
@@ -14,6 +14,7 @@ export const initialPlayingfieldHost = () => {
       id: 20,
       velocityInput: new Vec2(0, 0),
       position: new Vec2(advancedMaskPosition.x, advancedMaskPosition.y),
+      maskDefinition: createMaskDefinition(),
     }),
   );
 

@@ -27,7 +27,10 @@ const Playingfield: FC<PlayingfieldProps> = () => {
   return (
     <PlayingfieldWrapper>
       {mainSnap.advancedMaskProperties.map((advancedMaskProperty) => (
-        <AdvancedMask {...advancedMaskProperty} />
+        <AdvancedMask
+          {...advancedMaskProperty}
+          maskDefinition={{ ...advancedMaskProperty.maskDefinition } as any}
+        />
       ))}
     </PlayingfieldWrapper>
   );
