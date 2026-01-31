@@ -1,7 +1,3 @@
-import {
-  PLAYINGFIELD_HEIGHT_WITHOUT_MASK,
-  PLAYINGFIELD_WIDTH_WITHOUT_MASK,
-} from '@/components/consts'
 import { mainState } from '@/state/mainState'
 
 import { isNil, sample, uniq } from 'lodash-es'
@@ -78,8 +74,10 @@ const onRequestMask = (playerUUID: string) => {
     `No Player without playerUUID could be found ${JSON.stringify(mainState.players)}`
   )
 
-  const assignedPlayerIndex = mainState.players.indexOf(playerWithoutPlayerUUID)
-  mainState.players[assignedPlayerIndex].playerUUID = playerUUID
+  const playerIndexWithoutPlayerUUID = mainState.players.indexOf(
+    playerWithoutPlayerUUID
+  )
+  mainState.players[playerIndexWithoutPlayerUUID].playerUUID = playerUUID
 
   sync()
 }
