@@ -6,19 +6,19 @@ const createFeature = (type: MaskFeatureType) => (image: string) => ({
     type
 });
 
-const masks = Object.values(import.meta.glob('../assets/masks/*.png', {
+export const masks = Object.values(import.meta.glob('../assets/masks/*.png', {
     eager: true,
     as: 'url'
 })).map(createFeature(MaskFeatureType.MASK));
-const top = Object.values(import.meta.glob('../assets/top/*.png', {
+export const top = Object.values(import.meta.glob('../assets/top/*.png', {
     eager: true,
     as: 'url'
 })).map(createFeature(MaskFeatureType.EAR));
-const noses = Object.values(import.meta.glob('../assets/nose/*.png', {
+export const noses = Object.values(import.meta.glob('../assets/nose/*.png', {
     eager: true,
     as: 'url'
 })).map(createFeature(MaskFeatureType.NOSE));
-const decorations = Object.values(import.meta.glob('../assets/decorations/*.png', {
+export const decorations = Object.values(import.meta.glob('../assets/decorations/*.png', {
     eager: true,
     as: 'url'
 })).map(createFeature(MaskFeatureType.DECORATION));
