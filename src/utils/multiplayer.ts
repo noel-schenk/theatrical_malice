@@ -23,12 +23,8 @@ export const playerFound = (playerUUID: string) => {
 
   mainState.players = mainState.players.map(player => {
     if (player.playerUUID === playerUUID) player.found = true
-
     return player
   })
-
-  if (mainState.players.filter(player => player.found).length <= 1)
-    mainState.showNavigation = 'won'
 }
 
 const onRequestPlayers = () => {
@@ -169,6 +165,9 @@ export const sync = () => {
       gameState: mainState.gameState,
     })
   )
+
+  if (mainState.players.filter(player => player.found).length <= 1)
+    mainState.showNavigation = 'won'
 }
 
 export const requestMask = () => {
@@ -193,12 +192,3 @@ export const getLobbyList = async () => {
   const { rooms } = await res.json()
   mainState.lobbyList = rooms
 }
-
-// export const
-
-// partySocket.send("Hello everyone");
-
-// // print each incoming message from the server to console
-// partySocket.addEventListener("message", (e) => {
-//   console.log(e.data);
-// });
