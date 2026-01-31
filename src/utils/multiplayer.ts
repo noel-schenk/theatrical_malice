@@ -166,8 +166,12 @@ export const sync = () => {
     })
   )
 
+  console.log(mainState.players, 'mainState.players')
+
   if (
-    mainState.players.filter(player => player.found === false).length <= 1 &&
+    mainState.players.filter(
+      player => player.found === false && !isNil(player.playerUUID)
+    ).length <= 1 &&
     mainState.gameState !== 'start'
   ) {
     mainState.showNavigation = 'won'
