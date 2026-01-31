@@ -10,10 +10,10 @@ interface LostProps {}
 
 const Lost: FC<LostProps> = () => (
   <LostWrapper>
-    <div className="absolute z-90 p-8 ">
+    <div className="absolute z-60 p-8">
       <Card>
         <CardContent>
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-col flex-wrap gap-4">
             <div>
               <div className="flex flex-wrap gap-4">
                 <div className="typography">
@@ -28,8 +28,8 @@ const Lost: FC<LostProps> = () => (
                 </Button>
               </div>
             </div>
-            <div>
-              <img src="/ui/endscreen/lost.png" />
+            <div className="flex">
+              <img className="w-60" src="/ui/endscreen/lost.png" />
             </div>
           </div>
         </CardContent>
