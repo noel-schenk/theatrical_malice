@@ -1,6 +1,10 @@
 import type { MaskDefinition } from '@/models/MaskDefinition'
 import { mainState } from '@/state/mainState'
-import { requestMask, requestPlayers, startGame } from '@/utils/multiplayer'
+import {
+  gameHasStarted,
+  requestMask,
+  requestPlayers,
+} from '@/utils/multiplayer'
 
 import { type FC, useEffect } from 'react'
 
@@ -8,7 +12,6 @@ import { cloneDeep } from 'lodash-es'
 import type { CSSProperties } from 'styled-components'
 import { useSnapshot } from 'valtio'
 
-import AdvancedMask from '../AdvancedMask/AdvancedMask'
 import Mask from '../Mask/Mask'
 import { Banner, BannerTitle } from '../kibo-ui/banner'
 import { Button } from '../ui/button'
@@ -23,6 +26,12 @@ const PartyWaitingroom: FC<PartyWaitingroomProps> = () => {
   useEffect(() => {
     requestPlayers()
   }, [])
+
+  useEffect(() => {
+    console.log(mainSnap.gameState, 'mainSnap.gameState')
+    if (mainSnap.gameState === 'running') mainState.showNavigation = 'game'
+    gameHasStarted()
+  }, [mainSnap.gameState])
 
   const player = mainSnap.players.find(
     player => player.playerUUID === mainSnap.playerUUID
@@ -108,8 +117,7 @@ const PartyWaitingroom: FC<PartyWaitingroomProps> = () => {
                   </div>
                   <Button
                     onClick={() => {
-                      mainState.showNavigation = 'game'
-                      startGame()
+                      mainState.gameState = 'running'
                     }}
                   >
                     Start

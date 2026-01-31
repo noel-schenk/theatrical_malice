@@ -8,11 +8,9 @@ import { sync } from '@/utils/multiplayer'
 
 export const initialPlayingfieldHost = () => {
   console.log('initialPlayingfieldHost')
-  const advancedMaskPositions = initialMaskDistribution(600)
+  const advancedMaskPositions = initialMaskDistribution(6)
   const advancedMaskProperties = advancedMaskPositions.map(
-    (advancedMaskPosition, index) => ({
-      key: index,
-      id: index,
+    advancedMaskPosition => ({
       velocityInput: new Vec2(0, 0),
       position: new Vec2(advancedMaskPosition.x, advancedMaskPosition.y),
       maskDefinition: createMaskDefinition(),
@@ -23,6 +21,7 @@ export const initialPlayingfieldHost = () => {
   mainState.players = advancedMaskProperties.map(advancedMaskProperty => ({
     advancedMaskProperty: advancedMaskProperty,
     maskUUID: getUUID(),
+    found: false,
   }))
 }
 

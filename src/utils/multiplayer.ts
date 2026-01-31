@@ -1,3 +1,8 @@
+import { screenInstance } from '@/components/Screen/Screen'
+import {
+  PLAYINGFIELD_HEIGHT_WITHOUT_MASK,
+  PLAYINGFIELD_WIDTH_WITHOUT_MASK,
+} from '@/components/consts'
 import { mainState } from '@/state/mainState'
 
 import { isNil, sample, uniq } from 'lodash-es'
@@ -13,6 +18,32 @@ export const decode = (message: any): any => JSON.parse(atob(message))
 
 export const partyData = {
   partySocket: null as PartySocket | null,
+}
+
+export const gameHasStarted = () => {
+  assertTrue(!isNil(screenInstance.panzoom), 'Panzoom was not found')
+  screenInstance.panzoom.moveTo(
+    -PLAYINGFIELD_HEIGHT_WITHOUT_MASK / 2,
+    -PLAYINGFIELD_WIDTH_WITHOUT_MASK / 2
+  )
+  screenInstance.panzoom.smoothZoom(
+    -PLAYINGFIELD_HEIGHT_WITHOUT_MASK / 2,
+    -PLAYINGFIELD_WIDTH_WITHOUT_MASK / 2,
+    0.7
+  )
+}
+
+export const playerFound = (playerUUID: string) => {
+  if (!mainState.isHost) return
+
+  mainState.players = mainState.players.map(player => {
+    if (player.playerUUID === playerUUID) player.found = true
+
+    return player
+  })
+
+  if (mainState.players.filter(player => player.found).length <= 1)
+    mainState.showNavigation = 'won'
 }
 
 const onRequestPlayers = () => {
@@ -34,13 +65,10 @@ const onRespondPlayers = (name: string) => {
   mainState.connectedPlayers = uniq([...mainState.connectedPlayers, name])
 }
 
-const onStartGame = () => {
-  console.log('onStartGame')
-  mainState.showNavigation = 'game'
-}
-
-const onSync = (data: any) => {
-  mainState.players = data
+const onSync = (players: any, gameState: any) => {
+  mainState.players = players
+  mainState.gameState = gameState
+  console.log('update mainState.gameState', gameState)
 }
 
 const onRequestMask = (playerUUID: string) => {
@@ -67,6 +95,11 @@ const onRequestMask = (playerUUID: string) => {
   sync()
 }
 
+const onFoundPlayer = (playerUUID: string) => {
+  playerFound(playerUUID)
+  if (playerUUID === mainState.playerUUID) mainState.showNavigation = 'lost'
+}
+
 const partyListener = () => {
   if (isNil(partyData.partySocket)) return
   partyData.partySocket.addEventListener('message', e => {
@@ -81,14 +114,14 @@ const partyListener = () => {
       case 'respond_players':
         onRespondPlayers(data.name)
         break
-      case 'start_game':
-        onStartGame()
-        break
       case 'sync':
-        onSync(data.data)
+        onSync(data.players, data.gameState)
         break
       case 'request_mask':
         onRequestMask(data.playerUUID)
+        break
+      case 'found_player':
+        onFoundPlayer(data.playerUUID)
         break
     }
   })
@@ -125,14 +158,15 @@ export const requestPlayers = () => {
   mainState.connectedPlayers = []
 }
 
-export const startGame = () => {
-  if (isNil(partyData.partySocket)) return
-  partyData.partySocket.send(encode({ type: 'start_game' }))
-}
-
 export const sync = () => {
   if (isNil(partyData.partySocket)) return
-  partyData.partySocket.send(encode({ type: 'sync', data: mainState.players }))
+  partyData.partySocket.send(
+    encode({
+      type: 'sync',
+      players: mainState.players,
+      gameState: mainState.gameState,
+    })
+  )
 }
 
 export const requestMask = () => {
@@ -142,6 +176,12 @@ export const requestMask = () => {
   partyData.partySocket.send(
     encode({ type: 'request_mask', playerUUID: mainState.playerUUID })
   )
+}
+
+export const requestFoundPlayer = (playerUUID: string) => {
+  if (isNil(partyData.partySocket)) return
+  partyData.partySocket.send(encode({ type: 'found_player', playerUUID }))
+  playerFound(playerUUID)
 }
 
 export const getLobbyList = async () => {

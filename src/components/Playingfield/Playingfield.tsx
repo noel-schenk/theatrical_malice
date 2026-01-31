@@ -1,10 +1,11 @@
+import type { PlayerType } from '@/models/Player'
 import { mainState } from '@/state/mainState'
 
 import { type FC, useEffect } from 'react'
 
 import { useSnapshot } from 'valtio'
 
-import AdvancedMask from '../AdvancedMask/AdvancedMask'
+import Player from '../Player/Player'
 import { PlayingfieldWrapper } from './Playingfield.styled'
 import { updatePlayingfieldHost } from './PlayingfieldHost'
 
@@ -23,13 +24,7 @@ const Playingfield: FC<PlayingfieldProps> = () => {
   return (
     <PlayingfieldWrapper>
       {mainSnap.players.map(player => (
-        <AdvancedMask
-          {...player.advancedMaskProperty}
-          maskDefinition={
-            { ...player.advancedMaskProperty.maskDefinition } as any
-          }
-          key={player.maskUUID}
-        />
+        <Player player={player as PlayerType} key={player.maskUUID} />
       ))}
     </PlayingfieldWrapper>
   )
