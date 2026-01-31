@@ -10,8 +10,6 @@ import PartySocket from 'partysocket'
 
 import { assertTrue } from './assertTrue'
 
-const HOST = 'localhost:1984'
-
 export const encode = (object: any): string => btoa(JSON.stringify(object))
 
 export const decode = (message: any): any => JSON.parse(atob(message))
@@ -129,14 +127,14 @@ const partyListener = () => {
 
 export const createParty = async () => {
   const res = await fetch(
-    `http://${HOST}/parties/main/lobby?check=${mainState.lobbyName}`
+    `${import.meta.env.VITE_BACKEND_URL}/parties/main/lobby?check=${mainState.lobbyName}`
   )
   const { exists } = await res.json()
 
   if (exists) return false
 
   partyData.partySocket = new PartySocket({
-    host: HOST,
+    host: import.meta.env.VITE_BACKEND_URL,
     room: mainState.lobbyName,
   })
   partyListener()
@@ -146,7 +144,7 @@ export const createParty = async () => {
 
 export const joinParty = (roomName: string) => {
   partyData.partySocket = new PartySocket({
-    host: HOST,
+    host: import.meta.env.VITE_BACKEND_URL,
     room: roomName,
   })
   partyListener()
@@ -185,7 +183,9 @@ export const requestFoundPlayer = (playerUUID: string) => {
 }
 
 export const getLobbyList = async () => {
-  const res = await fetch(`http://${HOST}/parties/main/lobby`)
+  const res = await fetch(
+    `${import.meta.env.VITE_BACKEND_URL}/parties/main/lobby`
+  )
   const { rooms } = await res.json()
   mainState.lobbyList = rooms
 }

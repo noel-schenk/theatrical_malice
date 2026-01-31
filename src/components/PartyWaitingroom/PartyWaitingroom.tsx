@@ -7,6 +7,7 @@ import {
 } from '@/utils/multiplayer'
 
 import { type FC, useEffect } from 'react'
+import QRCode from 'react-qr-code'
 
 import { cloneDeep } from 'lodash-es'
 import type { CSSProperties } from 'styled-components'
@@ -122,6 +123,9 @@ const PartyWaitingroom: FC<PartyWaitingroomProps> = () => {
                   >
                     Start
                   </Button>
+                  <QRCode
+                    value={`${import.meta.env.VITE_BACKEND_URL}/?lobby=${mainSnap.lobbyName}`}
+                  />
                 </div>
               )}
             </CardContent>
