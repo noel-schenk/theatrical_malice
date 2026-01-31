@@ -149,7 +149,12 @@ export const joinParty = async (roomName: string) => {
   )
   const { exists } = await res.json()
 
-  if (!exists) return toast("The party you're trying to join does not exist.")
+  if (!exists) {
+    const url = new URL(window.location.href)
+    url.searchParams.delete('lobby')
+    window.history.replaceState({}, '', url.href)
+    return toast("The party you're trying to join does not exist.")
+  }
 
   partyData.partySocket = new PartySocket({
     host: import.meta.env.VITE_BACKEND_URL,
