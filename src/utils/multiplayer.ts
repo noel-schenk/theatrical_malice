@@ -166,7 +166,10 @@ export const sync = () => {
     })
   )
 
-  if (mainState.players.filter(player => player.found).length <= 1)
+  if (
+    mainState.players.filter(player => player.found).length <= 1 &&
+    mainState.gameState !== 'start'
+  )
     mainState.showNavigation = 'won'
 }
 
