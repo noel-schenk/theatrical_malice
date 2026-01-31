@@ -145,7 +145,7 @@ export const createParty = async () => {
 
 export const joinParty = async (roomName: string) => {
   const res = await fetch(
-    `${import.meta.env.VITE_BACKEND_URL}/parties/main/lobby?check=${mainState.lobbyName}`
+    `${import.meta.env.VITE_BACKEND_URL}/parties/main/lobby?check=${roomName}`
   )
   const { exists } = await res.json()
 
