@@ -1,27 +1,36 @@
-import { useEffect, useMemo, useState, type FC } from "react";
-import { LobbyWrapper } from "./Lobby.styled";
-import { Card, CardContent } from "../ui/card";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { Banner, BannerAction, BannerTitle } from "../kibo-ui/banner";
-import type { CSSProperties } from "styled-components";
-import { createParty, getLobbyList, joinParty } from "@/utils/multiplayer";
-import { useSnapshot } from "valtio";
-import { mainState } from "@/state/mainState";
-import { toast } from "sonner";
+import { mainState } from '@/state/mainState'
+import {
+  createParty,
+  getLobbyList,
+  joinParty,
+  requestMask,
+} from '@/utils/multiplayer'
+
+import { type FC, useEffect, useMemo } from 'react'
+
+import { toast } from 'sonner'
+import type { CSSProperties } from 'styled-components'
+import { useSnapshot } from 'valtio'
+
+import { initialPlayingfieldHost } from '../Playingfield/PlayingfieldHost'
+import { Banner, BannerAction, BannerTitle } from '../kibo-ui/banner'
+import { Button } from '../ui/button'
+import { Card, CardContent } from '../ui/card'
+import { Input } from '../ui/input'
+import { LobbyWrapper } from './Lobby.styled'
 
 interface LobbyProps {}
 
 const Lobby: FC<LobbyProps> = () => {
-  const mainSnap = useSnapshot(mainState);
+  const mainSnap = useSnapshot(mainState)
 
   const lobbyList = useMemo(() => {
-    return mainSnap.lobbyList;
-  }, [mainSnap.lobbyList]);
+    return mainSnap.lobbyList
+  }, [mainSnap.lobbyList])
 
   useEffect(() => {
-    getLobbyList();
-  }, []);
+    getLobbyList()
+  }, [])
 
   return (
     <LobbyWrapper>
@@ -36,19 +45,23 @@ const Lobby: FC<LobbyProps> = () => {
                 <Input
                   placeholder="Lobby name"
                   value={mainSnap.lobbyName}
-                  onChange={(ev) => (mainState.lobbyName = ev.target.value)}
+                  onChange={ev => (mainState.lobbyName = ev.target.value)}
                 />
                 <Button
                   disabled={mainSnap.lobbyName.length < 4}
                   onClick={async () => {
-                    const partyWasCreated = await createParty();
+                    const partyWasCreated = await createParty()
                     if (!partyWasCreated)
-                      return toast("This room name is already in use", {
-                        position: "top-left",
-                      });
+                      return toast('This room name is already in use', {
+                        position: 'top-left',
+                      })
 
-                    mainState.isHost = true;
-                    mainState.showNavigation = "partyWaitingroom";
+                    mainState.isHost = true
+
+                    initialPlayingfieldHost()
+
+                    mainState.showNavigation = 'partyWaitingroom'
+                    requestMask()
                   }}
                 >
                   Create Lobby
@@ -73,23 +86,24 @@ const Lobby: FC<LobbyProps> = () => {
                     key={lobby}
                     style={
                       {
-                        "--primary": [
-                          "#93827F",
-                          "#6BA292",
-                          "#35CE8D",
-                          "#BCD8B7",
-                          "#E0D2C3",
+                        '--primary': [
+                          '#93827F',
+                          '#6BA292',
+                          '#35CE8D',
+                          '#BCD8B7',
+                          '#E0D2C3',
                         ][index % 5],
-                        "--primary-foreground": "white",
+                        '--primary-foreground': 'white',
                       } as any as CSSProperties
                     }
                   >
                     <BannerTitle>{lobby}</BannerTitle>
                     <BannerAction
                       onClick={() => {
-                        joinParty(lobby);
-                        mainState.isHost = false;
-                        mainState.showNavigation = "partyWaitingroom";
+                        joinParty(lobby)
+                        mainState.isHost = false
+                        mainState.showNavigation = 'partyWaitingroom'
+                        requestMask()
                       }}
                     >
                       JOIN LOBBY
@@ -102,7 +116,7 @@ const Lobby: FC<LobbyProps> = () => {
         </Card>
       </div>
     </LobbyWrapper>
-  );
-};
+  )
+}
 
-export default Lobby;
+export default Lobby

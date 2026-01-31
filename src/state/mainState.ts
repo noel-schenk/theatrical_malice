@@ -1,5 +1,4 @@
-import type { MaskDefinition } from "@/models/MaskDefinition";
-import type { Vec2 } from "@/models/Vec2";
+import type { Player } from "@/models/Player";
 import { proxy } from "valtio";
 
 export const navigation = [
@@ -17,11 +16,6 @@ export const mainState = proxy({
   lobbyList: [] as Array<string>,
   lobbyName: "",
   connectedPlayers: [] as Array<string>,
-  advancedMaskProperties: [] as {
-    key: number;
-    id: number;
-    velocityInput: Vec2;
-    position: Vec2;
-    maskDefinition: MaskDefinition;
-  }[],
+  players: [] as Array<Player>,
+  playerUUID: "",
 });

@@ -1,39 +1,38 @@
-import { useEffect, type FC } from "react";
-import { PlayingfieldWrapper } from "./Playingfield.styled";
-import AdvancedMask from "../AdvancedMask/AdvancedMask";
-import { useSnapshot } from "valtio";
-import { mainState } from "@/state/mainState";
-import {
-  initialPlayingfieldHost,
-  updatePlayingfieldHost,
-} from "./PlayingfieldHost";
+import { mainState } from '@/state/mainState'
+
+import { type FC, useEffect } from 'react'
+
+import { useSnapshot } from 'valtio'
+
+import AdvancedMask from '../AdvancedMask/AdvancedMask'
+import { PlayingfieldWrapper } from './Playingfield.styled'
+import { updatePlayingfieldHost } from './PlayingfieldHost'
 
 interface PlayingfieldProps {}
 
 const Playingfield: FC<PlayingfieldProps> = () => {
-  const mainSnap = useSnapshot(mainState, { sync: true });
-
-  useEffect(() => {
-    initialPlayingfieldHost();
-  }, []);
+  const mainSnap = useSnapshot(mainState, { sync: true })
 
   useEffect(() => {
     const interval = setInterval(() => {
-      updatePlayingfieldHost();
-    }, 2000);
-    return () => clearInterval(interval);
-  });
+      updatePlayingfieldHost()
+    }, 2000)
+    return () => clearInterval(interval)
+  })
 
   return (
     <PlayingfieldWrapper>
-      {mainSnap.advancedMaskProperties.map((advancedMaskProperty) => (
+      {mainSnap.players.map(player => (
         <AdvancedMask
-          {...advancedMaskProperty}
-          maskDefinition={{ ...advancedMaskProperty.maskDefinition } as any}
+          {...player.advancedMaskProperty}
+          maskDefinition={
+            { ...player.advancedMaskProperty.maskDefinition } as any
+          }
+          key={player.maskUUID}
         />
       ))}
     </PlayingfieldWrapper>
-  );
-};
+  )
+}
 
-export default Playingfield;
+export default Playingfield

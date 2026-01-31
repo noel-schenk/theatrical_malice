@@ -5,18 +5,13 @@ import { Vec2 } from "../../models/Vec2";
 import { random } from "lodash-es";
 import type { MaskDefinition } from "@/models/MaskDefinition";
 
-interface MAdvancedMaskProps {
-  id: number;
+export interface AdvancedMaskProps {
   velocityInput: Vec2;
   position: Vec2;
   maskDefinition: MaskDefinition;
 }
 
-const AdvancedMask: FC<MAdvancedMaskProps> = ({
-  id,
-  position,
-  maskDefinition,
-}) => {
+const AdvancedMask: FC<AdvancedMaskProps> = ({ position, maskDefinition }) => {
   const [delayedPositionUpdate, setDelayedPositionUpdate] = useState(
     new Vec2(),
   );
@@ -38,7 +33,7 @@ const AdvancedMask: FC<MAdvancedMaskProps> = ({
         transform: `translate3d(${delayedPositionUpdate.x}px, ${delayedPositionUpdate.y}px, 0)`,
       }}
     >
-      <Mask id={id} maskDefinition={maskDefinition} />
+      <Mask maskDefinition={maskDefinition} />
     </AdvancedMaskWrapper>
   );
 };
