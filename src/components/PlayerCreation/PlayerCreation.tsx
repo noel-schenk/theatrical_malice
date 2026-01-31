@@ -35,14 +35,15 @@ const PlayerCreation: FC<PlayerCreationProps> = () => {
                 <Button
                   disabled={mainState.characterName.length < 4}
                   onClick={() => {
+                    mainState.playerUUID = getUUID()
+
                     const lobby = new URLSearchParams(
                       window.location.search
                     ).get('lobby')
-                    if (isNil(lobby)) {
-                      mainState.playerUUID = getUUID()
-                      mainState.showNavigation = 'lobby'
-                      return
-                    }
+
+                    if (isNil(lobby))
+                      return (mainState.showNavigation = 'lobby')
+
                     joinParty(lobby)
                   }}
                 >

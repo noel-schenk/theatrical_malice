@@ -69,16 +69,16 @@ const onRequestMask = (playerUUID: string) => {
     return player
   }) // Allows a player to get a new Mask
 
-  const assignedMask = sample(
+  const playerWithoutPlayerUUID = sample(
     mainState.players.filter(player => isNil(player.playerUUID))
   )
 
   assertTrue(
-    !isNil(assignedMask),
-    `Assigned could not be found Mask found ${JSON.stringify(mainState.players)}`
+    !isNil(playerWithoutPlayerUUID),
+    `No Player without playerUUID could be found ${JSON.stringify(mainState.players)}`
   )
 
-  const assignedPlayerIndex = mainState.players.indexOf(assignedMask)
+  const assignedPlayerIndex = mainState.players.indexOf(playerWithoutPlayerUUID)
   mainState.players[assignedPlayerIndex].playerUUID = playerUUID
 
   sync()
