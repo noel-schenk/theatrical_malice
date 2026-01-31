@@ -28,10 +28,9 @@ export const playerFound = (playerUUID: string) => {
     mainState.gameState !== 'start'
   )
     if (
-      mainState.players.filter(
-        player =>
-          player.found === false && player.playerUUID === mainState.playerUUID
-      ).length > 0
+      mainState.players.find(
+        player => player.found === false && !isNil(player.playerUUID)
+      )?.playerUUID === mainState.playerUUID
     )
       mainState.showNavigation = 'won'
 
