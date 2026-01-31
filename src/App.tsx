@@ -1,3 +1,6 @@
+import { useEffect } from 'react'
+
+import { isNil } from 'lodash-es'
 import { Toaster } from 'sonner'
 import { useSnapshot } from 'valtio'
 
@@ -9,9 +12,17 @@ import PlayerCreation from './components/PlayerCreation/PlayerCreation'
 import Screen from './components/Screen/Screen'
 import Won from './components/Won/Won'
 import { mainState } from './state/mainState'
+import { joinParty } from './utils/multiplayer'
 
 function App() {
   const mainSnap = useSnapshot(mainState)
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search)
+    const lobby = urlParams.get('lobby')
+    if (isNil(lobby)) return
+    joinParty(lobby)
+  }, [])
 
   return (
     <>
