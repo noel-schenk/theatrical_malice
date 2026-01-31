@@ -25,13 +25,11 @@ const PartyWaitingroom: FC<PartyWaitingroomProps> = () => {
   const mainSnap = useSnapshot(mainState)
 
   useEffect(() => {
-    requestPlayers()
-  }, [])
-
-  useEffect(() => {
     console.log(mainSnap.gameState, 'mainSnap.gameState')
-    if (mainSnap.gameState === 'running') mainState.showNavigation = 'game'
-    gameHasStarted()
+    if (mainSnap.gameState === 'running') {
+      mainState.showNavigation = 'game'
+      gameHasStarted()
+    }
   }, [mainSnap.gameState])
 
   const player = mainSnap.players.find(

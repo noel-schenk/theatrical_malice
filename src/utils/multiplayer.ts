@@ -15,6 +15,7 @@ export const partyData = {
 }
 
 export const gameHasStarted = () => {
+  requestPlayers()
   // TODO: do camera stuff or else
 }
 
@@ -23,7 +24,12 @@ const gameHasFinished = (wonPlayerUUID: string) => {
   else mainState.showNavigation = 'lost'
 }
 
-export const playerFound = (playerUUID: string) => {
+export const playerFound = (playerUUID: string, seekerPlayerUUID: string) => {
+  if (playerUUID === mainState.playerUUID) {
+    mainState.yourKiller = seekerPlayerUUID
+    mainState.showNavigation = 'lost'
+  }
+
   if (!mainState.isHost) return
 
   mainState.players = mainState.players.map(player => {
@@ -53,15 +59,28 @@ const onRequestPlayers = () => {
     encode({
       type: 'respond_players',
       name: mainState.characterName,
+      playerUUID: mainState.playerUUID,
     })
   )
 }
 
-const onRespondPlayers = (name: string) => {
+export const setPlayerNameByPlayerUUID = (name: string, playerUUID: string) => {
+  const player = mainState.players.find(
+    player => player.playerUUID === playerUUID
+  )
+  assertTrue(!isNil(player), 'player not found')
+  player.name = name
+}
+
+const onRespondPlayers = (name: string, playerUUID: string) => {
   console.log('onRespondPlayers 1')
   if (isNil(partyData.partySocket)) return
   console.log('onRespondPlayers 2', name)
   mainState.connectedPlayers = uniq([...mainState.connectedPlayers, name])
+
+  if (!mainState.isHost) return
+
+  setPlayerNameByPlayerUUID(name, playerUUID)
 }
 
 const onSync = (players: any, gameState: any) => {
@@ -96,9 +115,8 @@ const onRequestMask = (playerUUID: string) => {
   sync()
 }
 
-const onFoundPlayer = (playerUUID: string) => {
-  playerFound(playerUUID)
-  if (playerUUID === mainState.playerUUID) mainState.showNavigation = 'lost'
+const onFoundPlayer = (playerUUID: string, seekerPlayerUUID: string) => {
+  playerFound(playerUUID, seekerPlayerUUID)
 }
 
 const onGameHasFinished = (playerUUID: string) => {
@@ -117,7 +135,7 @@ const partyListener = () => {
         onRequestPlayers()
         break
       case 'respond_players':
-        onRespondPlayers(data.name)
+        onRespondPlayers(data.name, data.playerUUID)
         break
       case 'sync':
         onSync(data.players, data.gameState)
@@ -126,7 +144,7 @@ const partyListener = () => {
         onRequestMask(data.playerUUID)
         break
       case 'found_player':
-        onFoundPlayer(data.playerUUID)
+        onFoundPlayer(data.playerUUID, data.seekerPlayerUUID)
         break
       case 'game_finished':
         onGameHasFinished(data.playerUUID)
@@ -202,8 +220,14 @@ export const requestMask = () => {
 
 export const requestFoundPlayer = (playerUUID: string) => {
   if (isNil(partyData.partySocket)) return
-  partyData.partySocket.send(encode({ type: 'found_player', playerUUID }))
-  playerFound(playerUUID)
+  partyData.partySocket.send(
+    encode({
+      type: 'found_player',
+      playerUUID,
+      seekerPlayerUUID: mainState.playerUUID,
+    })
+  )
+  playerFound(playerUUID, mainState.playerUUID)
 }
 
 const gameFinished = (playerUUID: string) => {

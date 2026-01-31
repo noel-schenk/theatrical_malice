@@ -4,6 +4,8 @@ import {
   getLobbyList,
   joinParty,
   requestMask,
+  requestPlayers,
+  setPlayerNameByPlayerUUID,
 } from '@/utils/multiplayer'
 
 import { type FC, useEffect, useMemo } from 'react'
@@ -64,6 +66,12 @@ const Lobby: FC<LobbyProps> = () => {
 
                     mainState.showNavigation = 'partyWaitingroom'
                     requestMask()
+
+                    setPlayerNameByPlayerUUID(
+                      mainState.characterName,
+                      mainState.playerUUID
+                    )
+                    requestPlayers()
                   }}
                 >
                   Create Lobby

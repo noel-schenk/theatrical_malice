@@ -5,6 +5,7 @@ export class PlayerType {
     public advancedMaskProperty: AdvancedMaskProps,
     public maskUUID: string,
     public playerUUID?: string,
-    public found: boolean = false
+    public found: boolean = false,
+    public name: string = ''
   ) {}
 }

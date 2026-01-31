@@ -24,4 +24,5 @@ export const mainState = proxy({
   players: [] as Array<PlayerType>,
   playerUUID: '',
   gameState: 'start' as (typeof GAME_STATES)[number],
+  yourKiller: '',
 })
