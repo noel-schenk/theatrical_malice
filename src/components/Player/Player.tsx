@@ -8,6 +8,7 @@ import { type FC } from 'react'
 
 import { isNil } from 'lodash-es'
 import { toast } from 'sonner'
+import useSound from 'use-sound'
 
 import AdvancedMask from '../AdvancedMask/AdvancedMask'
 import { PlayerWrapper } from './Player.styled'
@@ -20,6 +21,9 @@ const Player: FC<PlayerProps> = ({ player }) => {
   const wrongPersonTrigger = useTrigger()
   const rightPersonTrigger = useTrigger()
 
+  const [playExploding] = useSound('/audio/exploding.mp3')
+  const [playWrong] = useSound('/audio/wrong.mp3')
+
   return (
     <PlayerWrapper>
       <div
@@ -30,7 +34,11 @@ const Player: FC<PlayerProps> = ({ player }) => {
           if (!isNil(player.playerUUID) && !playerHasBeenFound()) {
             requestFoundPlayer(player.playerUUID)
             rightPersonTrigger()
-          } else wrongPersonTrigger()
+            playExploding()
+          } else {
+            wrongPersonTrigger()
+            playWrong()
+          }
         }}
       >
         <AdvancedMask
