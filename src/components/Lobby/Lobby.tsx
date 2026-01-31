@@ -34,7 +34,7 @@ const Lobby: FC<LobbyProps> = () => {
 
   return (
     <LobbyWrapper>
-      <div className="flex flex-wrap gap-4 p-4">
+      <div className="absolute z-50 flex flex-wrap gap-4 p-4">
         <Card className="grow">
           <CardContent>
             <div className="flex flex-col gap-4">

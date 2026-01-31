@@ -1,31 +1,21 @@
-import { type FC, useEffect, useRef } from 'react'
-
-import { isNil } from 'lodash-es'
-import createPanZoom, { type PanZoom } from 'panzoom'
+import { type FC } from 'react'
+import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch'
 
 import Playingfield from '../Playingfield/Playingfield'
 import { ScreenWrapper } from './Screen.styled'
 
 interface ScreenProps {}
 
-export const screenInstance = {
-  panzoom: null as PanZoom | null,
-}
-
 const Screen: FC<ScreenProps> = () => {
-  const screenRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const screenElement = screenRef.current
-    if (!isNil(screenElement))
-      screenInstance.panzoom = createPanZoom(screenElement)
-  }, [screenRef])
-
   return (
     <ScreenWrapper>
-      <div ref={screenRef}>
-        <Playingfield />
-      </div>
+      <TransformWrapper centerOnInit limitToBounds minScale={0.3}>
+        <TransformComponent
+          wrapperStyle={{ width: '100dvw', height: '100dvh' }}
+        >
+          <Playingfield />
+        </TransformComponent>
+      </TransformWrapper>
     </ScreenWrapper>
   )
 }

@@ -1,4 +1,3 @@
-import { screenInstance } from '@/components/Screen/Screen'
 import {
   PLAYINGFIELD_HEIGHT_WITHOUT_MASK,
   PLAYINGFIELD_WIDTH_WITHOUT_MASK,
@@ -20,16 +19,7 @@ export const partyData = {
 }
 
 export const gameHasStarted = () => {
-  assertTrue(!isNil(screenInstance.panzoom), 'Panzoom was not found')
-  screenInstance.panzoom.moveTo(
-    -PLAYINGFIELD_HEIGHT_WITHOUT_MASK / 2,
-    -PLAYINGFIELD_WIDTH_WITHOUT_MASK / 2
-  )
-  screenInstance.panzoom.smoothZoom(
-    -PLAYINGFIELD_HEIGHT_WITHOUT_MASK / 2,
-    -PLAYINGFIELD_WIDTH_WITHOUT_MASK / 2,
-    0.7
-  )
+  // TODO: do camera stuff or else
 }
 
 export const playerFound = (playerUUID: string) => {
