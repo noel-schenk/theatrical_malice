@@ -148,6 +148,9 @@ export const joinParty = (roomName: string) => {
     room: roomName,
   })
   partyListener()
+  mainState.isHost = false
+  mainState.showNavigation = 'partyWaitingroom'
+  requestMask()
 }
 
 export const requestPlayers = () => {

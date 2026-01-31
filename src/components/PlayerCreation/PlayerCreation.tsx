@@ -1,8 +1,10 @@
 import { mainState } from '@/state/mainState'
 import { getUUID } from '@/utils/getUUID'
+import { joinParty } from '@/utils/multiplayer'
 
 import { type FC } from 'react'
 
+import { isNil } from 'lodash-es'
 import { useSnapshot } from 'valtio'
 
 import { Button } from '../ui/button'
@@ -33,8 +35,15 @@ const PlayerCreation: FC<PlayerCreationProps> = () => {
                 <Button
                   disabled={mainState.characterName.length < 4}
                   onClick={() => {
-                    mainState.playerUUID = getUUID()
-                    mainState.showNavigation = 'lobby'
+                    const lobby = new URLSearchParams(
+                      window.location.search
+                    ).get('lobby')
+                    if (isNil(lobby)) {
+                      mainState.playerUUID = getUUID()
+                      mainState.showNavigation = 'lobby'
+                      return
+                    }
+                    joinParty(lobby)
                   }}
                 >
                   Start

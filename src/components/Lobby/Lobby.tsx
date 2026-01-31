@@ -101,9 +101,6 @@ const Lobby: FC<LobbyProps> = () => {
                     <BannerAction
                       onClick={() => {
                         joinParty(lobby)
-                        mainState.isHost = false
-                        mainState.showNavigation = 'partyWaitingroom'
-                        requestMask()
                       }}
                     >
                       JOIN LOBBY
