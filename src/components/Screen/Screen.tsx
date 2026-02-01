@@ -12,7 +12,7 @@ const Screen: FC<ScreenProps> = () => {
       <TransformWrapper
         centerOnInit
         limitToBounds
-        minScale={0.2}
+        minScale={0.08}
         maxScale={0.6}
         smooth={false}
         velocityAnimation={{ disabled: true }}

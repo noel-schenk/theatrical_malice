@@ -23,6 +23,10 @@ const gameHasFinished = (wonPlayerUUID: string) => {
   if (mainState.playerUUID === wonPlayerUUID) mainState.showNavigation = 'won'
   else mainState.showNavigation = 'lost'
 
+  setTimeout(() => {
+    mainState.gameState = 'end'
+  }, 2000)
+
   mainState.winner =
     mainState.players.find(player => player.playerUUID === wonPlayerUUID)
       ?.name ?? ''

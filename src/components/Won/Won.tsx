@@ -11,7 +11,7 @@ interface WonProps {}
 
 const Won: FC<WonProps> = () => (
   <WonWrapper>
-    <div className="absolute z-60 p-8">
+    <div className="absolute z-45 p-8">
       <Card>
         <CardContent>
           <div className="flex flex-col flex-wrap gap-4">

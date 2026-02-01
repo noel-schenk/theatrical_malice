@@ -2,6 +2,7 @@ import { Toaster } from 'sonner'
 import { useSnapshot } from 'valtio'
 
 import { AppWrapper } from './App.styled'
+import EndScreen from './components/EndScreen/EndScreen'
 import FlashingInfo from './components/FlashingInfo/FlashingInfo'
 import IsHiddenInfo from './components/IsHiddenInfo/IsHiddenInfo'
 import Lobby from './components/Lobby/Lobby'
@@ -13,7 +14,6 @@ import PlayerHints from './components/PlayerHints/PlayerHints'
 import Screen from './components/Screen/Screen'
 import Won from './components/Won/Won'
 import { mainState } from './state/mainState'
-import EndScreen from './components/EndScreen/EndScreen'
 
 function App() {
   const mainSnap = useSnapshot(mainState)
@@ -21,12 +21,12 @@ function App() {
   return (
     <>
       <AppWrapper>
+        {mainSnap.gameState === 'end' && <EndScreen />}
         {mainSnap.showNavigation === 'playerCreation' && <PlayerCreation />}
         {mainSnap.showNavigation === 'lobby' && <Lobby />}
         {mainSnap.showNavigation === 'partyWaitingroom' && <PartyWaitingroom />}
         {mainSnap.showNavigation === 'lost' && <Lost />}
         {mainSnap.showNavigation === 'won' && <Won />}
-        {mainSnap.gameState === 'end' && <EndScreen />}
         <Music />
         <Screen />
         <Toaster />

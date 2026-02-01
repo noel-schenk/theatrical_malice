@@ -19,7 +19,7 @@ const PlayerCreation: FC<PlayerCreationProps> = () => {
 
   return (
     <PlayerCreationWrapper>
-      <div className="absolute z-50 flex flex-wrap gap-4 p-4 w-100 shrink max-w-[calc(100vw-10px)]">
+      <div className="absolute z-40 flex flex-wrap gap-4 p-4 w-100 shrink max-w-[calc(100vw-10px)]">
         <Card className="grow">
           <CardContent>
             <div className="flex flex-col gap-4">
