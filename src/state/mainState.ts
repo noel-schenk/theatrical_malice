@@ -25,4 +25,5 @@ export const mainState = proxy({
   playerUUID: '',
   gameState: 'start' as (typeof GAME_STATES)[number],
   yourKiller: '',
+  winner: ''
 })
