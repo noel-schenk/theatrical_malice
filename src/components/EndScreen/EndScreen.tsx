@@ -17,8 +17,8 @@ const EndScreen: FC<EndScreenProps> = () => {
 
   useEffect(() => {
     console.log('creditElement', creditElement.current)
-    if (isNil(creditElement.current)) return
     setTimeout(() => {
+      if (isNil(creditElement.current)) return
       creditElement.current.scrollTo({
         top: creditElement.current.scrollHeight,
         behavior: 'smooth',
