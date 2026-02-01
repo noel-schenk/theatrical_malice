@@ -2,6 +2,8 @@ import { Toaster } from 'sonner'
 import { useSnapshot } from 'valtio'
 
 import { AppWrapper } from './App.styled'
+import FlashingInfo from './components/FlashingInfo/FlashingInfo'
+import IsHiddenInfo from './components/IsHiddenInfo/IsHiddenInfo'
 import Lobby from './components/Lobby/Lobby'
 import Lost from './components/Lost/Lost'
 import Music from './components/Music/Music'
@@ -29,6 +31,8 @@ function App() {
         <Screen />
         <Toaster />
         <PlayerHints />
+        <FlashingInfo />
+        <IsHiddenInfo />
       </AppWrapper>
     </>
   )

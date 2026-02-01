@@ -1,6 +1,7 @@
 import type { MaskDefinition } from '@/models/MaskDefinition'
 import { mainState } from '@/state/mainState'
 import {
+  flashPlayers,
   gameHasStarted,
   requestMask,
   requestPlayers,
@@ -117,6 +118,10 @@ const PartyWaitingroom: FC<PartyWaitingroomProps> = () => {
                   <Button
                     onClick={() => {
                       mainState.gameState = 'running'
+
+                      setInterval(() => {
+                        flashPlayers()
+                      }, 8000)
                     }}
                   >
                     Start

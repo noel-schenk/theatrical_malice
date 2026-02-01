@@ -25,5 +25,7 @@ export const mainState = proxy({
   playerUUID: '',
   gameState: 'start' as (typeof GAME_STATES)[number],
   yourKiller: '',
+  flashPlayers: [] as Array<string>,
+  waitForNextClick: false,
   winner: ''
 })

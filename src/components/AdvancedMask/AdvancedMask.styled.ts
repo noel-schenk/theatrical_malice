@@ -41,4 +41,18 @@ export const AdvancedMaskWrapper = styled.div`
     opacity: 0;
     filter: blur(8px); */
   }
+
+  @keyframes pulsate {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.3);
+    }
+  }
+
+  .animate-pulsate {
+    animation: pulsate 0.3s ease-in-out infinite;
+  }
 `

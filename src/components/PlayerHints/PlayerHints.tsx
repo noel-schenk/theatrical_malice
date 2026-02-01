@@ -9,13 +9,7 @@ import { useSnapshot } from 'valtio'
 import Mask from '../Mask/Mask'
 import MaskDescription from '../MaskDescription/MaskDescription'
 import { Avatar, AvatarFallback } from '../ui/avatar'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '../ui/dialog'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../ui/dialog'
 import { PlayerHintsWrapper } from './PlayerHints.styled'
 
 interface PlayerHintsProps {}
@@ -63,7 +57,7 @@ const PlayerHints: FC<PlayerHintsProps> = () => {
           <DialogHeader>
             <DialogTitle>You want a hint? We got you!</DialogTitle>
             {!isNil(selectedPlayerHint) && (
-                <MaskDescription maskDefinition={selectedPlayerHint} />
+              <MaskDescription maskDefinition={selectedPlayerHint} />
             )}
           </DialogHeader>
         </DialogContent>
