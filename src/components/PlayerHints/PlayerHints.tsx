@@ -62,11 +62,9 @@ const PlayerHints: FC<PlayerHintsProps> = () => {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>You want a hint? We got you!</DialogTitle>
-            <DialogDescription className="p-4 py-2">
-              {!isNil(selectedPlayerHint) && (
+            {!isNil(selectedPlayerHint) && (
                 <MaskDescription maskDefinition={selectedPlayerHint} />
-              )}
-            </DialogDescription>
+            )}
           </DialogHeader>
         </DialogContent>
       </Dialog>

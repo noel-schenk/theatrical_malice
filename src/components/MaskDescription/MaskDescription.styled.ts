@@ -12,6 +12,16 @@ export const MaskDescriptionWrapper = styled.div`
         width: 48px;
         height: 48px;
         object-fit: cover;
+        outline-offset: -5px;
+        outline: 1px dashed black;
+    }
+
+    .flipped {
+        transform: scaleX(-1);
+    }
+
+    .position {
+        color: darkorange;
     }
 
     ul {
