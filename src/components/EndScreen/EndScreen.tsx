@@ -1,7 +1,8 @@
 import { mainState } from '@/state/mainState'
 
-import type { FC } from 'react'
+import { type FC, useEffect, useRef } from 'react'
 
+import { isNil } from 'lodash-es'
 import { useSnapshot } from 'valtio'
 
 import { Button } from '../ui/button'
@@ -12,13 +13,28 @@ interface EndScreenProps {}
 
 const EndScreen: FC<EndScreenProps> = () => {
   const mainSnap = useSnapshot(mainState)
+  const creditElement = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    console.log('creditElement', creditElement.current)
+    if (isNil(creditElement.current)) return
+    setTimeout(() => {
+      creditElement.current.scrollTo({
+        top: creditElement.current.scrollHeight,
+        behavior: 'smooth',
+      })
+    }, 1000)
+  }, [creditElement.current])
 
   return (
     <EndScreenWrapper>
       <div className="absolute z-50 flex flex-wrap gap-4 p-4 w-full h-full shrink">
         <Card className="grow">
           <CardContent>
-            <div className="flex flex-col gap-4 items-center text-center max-h-[500] overflow-scroll">
+            <div
+              className="flex flex-col gap-4 items-center text-center max-h-[calc(100vh-100px)] overflow-scroll"
+              ref={creditElement}
+            >
               <div className="typography">
                 <h1>Game over</h1>
                 <p>The winner is</p>
