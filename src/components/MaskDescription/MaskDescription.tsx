@@ -8,8 +8,17 @@ interface MaskDescriptionProps {
    maskDefinition: MaskDefinition
 }
 
+const resolvePosition = (position?: 'left' | 'right') => {
+   if (position === 'left') {
+      return 'links';
+   } else if (position === 'right') {
+      return ' rechts ';
+   } else {
+      return '';
+   }
+}
+
 const MaskDescription: FC<MaskDescriptionProps> = (props) => {
-console.log(props.maskDefinition.name)
  return <MaskDescriptionWrapper>
     <div>
       <img src={props.maskDefinition.url}></img>
@@ -18,7 +27,7 @@ console.log(props.maskDefinition.name)
     <ul>
       {props.maskDefinition.features.map((feature, index) => 
          <li key={index}>
-            <div><img src={feature.url}></img>{getDescriptionsFor(feature.type)[feature.name]}</div>
+            <div><img className={feature.position === 'right' ? 'flipped' : ''} src={feature.url}></img><span>{getDescriptionsFor(feature.type)[feature.name]} <span className="position">{resolvePosition(feature.position)}</span></span></div>
          </li>
       )}
     </ul>

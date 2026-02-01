@@ -3,10 +3,14 @@ import { MaskFeatureType } from '@/models/MaskFeatureDefinition'
 const decorations: { [key: string]: string } = {
   Crack: 'Riss',
   Moustache: 'Schnurrbart',
+  NoseBlueHatFakeFaceMask: 'blauer Zylinder',
+  NosePinkHatFakeFaceMask: 'pinker Zylinder',
+  NoseRedHatFakeFaceMask: 'roter Zylinder',
+  NoseYellowHatFakeFaceMask: 'gelber Zylinder'
 }
 
 const ears: { [key: string]: string } = {
-  Hase_Ohr: 'Tierohr',
+  Hase_Ohr: 'Tier langes ohr',
   LeftEarBlueAlienMask: 'Antenne mit blauem Ende',
   LeftEarBlueCatMask: 'blaues Katzenohr',
   LeftEarBlueRonaldMask: 'Matrosenmütze mit blauem Band',
@@ -31,10 +35,16 @@ const ears: { [key: string]: string } = {
   LeftEarYellowCatMask: 'gelbes Katzenohr',
   LeftEarYellowRonaldMask: 'Matrosenmütze mit gelbem Band',
   NinjaMaskTopLeft: 'Dreieck',
+  Fuchs_Ohr: 'Tier dreiecks Ohr',
+  LeftEarHeartFakeFaceMask: 'Herz an der Wange',
+  LeftEarSkullFakeFaceMask: 'Totenkopf an der Wange',
+  LeftEarStarFakeFaceMask: 'Stern an der Wange',
+  LeftEarTearFakeFaceMask: 'Träne an der Wange',
+  Panda_Ohr: 'rundes Panda Ohr'
 }
 
 const noses: { [key: string]: string } = {
-  Hase_Schnauze: 'Tiernase',
+  Hase_Schnauze: 'tier spitz nase',
   NoseAlienMask: 'schwarze Nasenlöcher',
   NoseBlueAlienMask: 'blaue Nasenlöcher',
   NoseBlueCatMask: 'blaue Dreiecksnase',
@@ -55,6 +65,8 @@ const noses: { [key: string]: string } = {
   NoseYellowCatMask: 'gelbe Dreiecksnase',
   NoseYellowClownMask: 'gelbe runde Nase',
   NoseYellowRonaldMask: 'gelber Schnabel',
+  Fuchs_Schnauze: 'kleine tier knopf nase',
+  Panda_Schnauze: 'große tier knopf nase'
 }
 
 const masks: { [key: string]: string } = {
@@ -66,6 +78,10 @@ const masks: { [key: string]: string } = {
   RabbitMask: 'Hasenmaske',
   RobotMask: 'Steinmaske',
   RonaldMask: 'Entenaugenmaske',
+  Fuchs_Maske: 'Fuchsmaske',
+  HappyFakeFaceMask: 'Glücklichehälftemaske',
+  Panda_Maske: 'Pandamaske',
+  SadFakeFaceMask: 'Traurigehälftemaske'
 }
 
 export const getDescriptionsFor = (type: MaskFeatureType) => {
