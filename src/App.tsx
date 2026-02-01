@@ -13,6 +13,7 @@ import PlayerHints from './components/PlayerHints/PlayerHints'
 import Screen from './components/Screen/Screen'
 import Won from './components/Won/Won'
 import { mainState } from './state/mainState'
+import EndScreen from './components/EndScreen/EndScreen'
 
 function App() {
   const mainSnap = useSnapshot(mainState)
@@ -25,6 +26,7 @@ function App() {
         {mainSnap.showNavigation === 'partyWaitingroom' && <PartyWaitingroom />}
         {mainSnap.showNavigation === 'lost' && <Lost />}
         {mainSnap.showNavigation === 'won' && <Won />}
+        {mainSnap.gameState === 'end' && <EndScreen />}
         <Music />
         <Screen />
         <Toaster />

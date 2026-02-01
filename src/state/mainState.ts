@@ -27,4 +27,5 @@ export const mainState = proxy({
   yourKiller: '',
   flashPlayers: [] as Array<string>,
   waitForNextClick: false,
+  winner: ''
 })
