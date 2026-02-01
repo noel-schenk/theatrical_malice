@@ -6,6 +6,7 @@ export const MaskDescriptionWrapper = styled.div`
         flex-direction: row;
         text-align: left;
         align-items: center;
+        gap: 10px;
     }
 
     img {
