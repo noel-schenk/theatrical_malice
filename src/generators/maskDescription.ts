@@ -3,6 +3,10 @@ import { MaskFeatureType } from '@/models/MaskFeatureDefinition'
 const decorations: { [key: string]: string } = {
   Crack: 'Riss',
   Moustache: 'Schnurrbart',
+  NoseBlueHatFakeFaceMask: 'blauer Zylinder',
+  NosePinkHatFakeFaceMask: 'pinker Zylinder',
+  NoseRedHatFakeFaceMask: 'roter Zylinder',
+  NoseYellowHatFakeFaceMask: 'gelber Zylinder'
 }
 
 const ears: { [key: string]: string } = {
@@ -31,6 +35,12 @@ const ears: { [key: string]: string } = {
   LeftEarYellowCatMask: 'gelbes Katzenohr',
   LeftEarYellowRonaldMask: 'Matrosenmütze mit gelbem Band',
   NinjaMaskTopLeft: 'Dreieck',
+  Fuchs_Ohr: '',
+  LeftEarHeartFakeFaceMask: '',
+  LeftEarSkullFakeFaceMask: '',
+  LeftEarStarFakeFaceMask: '',
+  LeftEarTearFakeFaceMask: '',
+  Panda_Ohr: ''
 }
 
 const noses: { [key: string]: string } = {
@@ -55,6 +65,8 @@ const noses: { [key: string]: string } = {
   NoseYellowCatMask: 'gelbe Dreiecksnase',
   NoseYellowClownMask: 'gelbe runde Nase',
   NoseYellowRonaldMask: 'gelber Schnabel',
+  Fuchs_Schnauze: '',
+  Panda_Schnauze: ''
 }
 
 const masks: { [key: string]: string } = {
@@ -66,6 +78,10 @@ const masks: { [key: string]: string } = {
   RabbitMask: 'Hasenmaske',
   RobotMask: 'Steinmaske',
   RonaldMask: 'Entenaugenmaske',
+  Fuchs_Maske: '',
+  HappyFakeFaceMask: '',
+  Panda_Maske: '',
+  SadFakeFaceMask: ''
 }
 
 export const getDescriptionsFor = (type: MaskFeatureType) => {
