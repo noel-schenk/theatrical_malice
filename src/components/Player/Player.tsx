@@ -4,7 +4,7 @@ import { requestFoundPlayer } from '@/utils/multiplayer'
 import { playerHasBeenFound } from '@/utils/playerHasBeenFound'
 import { useTrigger } from '@/utils/useTrigger'
 
-import { type FC } from 'react'
+import { type FC, useState } from 'react'
 
 import { isNil } from 'lodash-es'
 import { toast } from 'sonner'
@@ -19,7 +19,7 @@ interface PlayerProps {
 
 const Player: FC<PlayerProps> = ({ player }) => {
   const wrongPersonTrigger = useTrigger()
-  const rightPersonTrigger = useTrigger()
+  const [found, setFound] = useState(false)
 
   const [playExploding] = useSound('/audio/exploding.mp3')
   const [playWrong] = useSound('/audio/wrong.mp3')
@@ -33,7 +33,7 @@ const Player: FC<PlayerProps> = ({ player }) => {
 
           if (!isNil(player.playerUUID) && !playerHasBeenFound()) {
             requestFoundPlayer(player.playerUUID)
-            rightPersonTrigger()
+            setFound(true)
             playExploding()
           } else {
             wrongPersonTrigger()
@@ -44,7 +44,7 @@ const Player: FC<PlayerProps> = ({ player }) => {
         <AdvancedMask
           {...player.advancedMaskProperty}
           wrongPersonTrigger={wrongPersonTrigger}
-          rightPersonTrigger={rightPersonTrigger}
+          found={found}
         />
       </div>
     </PlayerWrapper>

@@ -16,12 +16,12 @@ const Lost: FC<LostProps> = () => (
           <div className="flex flex-col flex-wrap gap-4">
             <div>
               <div className="flex flex-wrap gap-4">
-                <div className="typography">
+                <div className="typography w-full">
                   <h2>
                     {mainState.players.find(
                       player => player.playerUUID === mainState.yourKiller
                     )?.name ?? 'Someone'}{' '}
-                    has found you (again)
+                    has found you
                   </h2>
                 </div>
                 <Button

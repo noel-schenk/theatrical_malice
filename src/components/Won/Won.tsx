@@ -16,8 +16,8 @@ const Won: FC<WonProps> = () => (
         <CardContent>
           <div className="flex flex-col flex-wrap gap-4">
             <div>
-              <div className="flex flex-wrap gap-4">
-                <div className="typography">
+              <div className="flex flex-wrap gap-4 ">
+                <div className="typography w-full">
                   <h2>You've WON</h2>
                 </div>
                 <Button

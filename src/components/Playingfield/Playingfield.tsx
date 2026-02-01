@@ -23,9 +23,11 @@ const Playingfield: FC<PlayingfieldProps> = () => {
 
   return (
     <PlayingfieldWrapper>
-      {mainSnap.players.map(player => (
-        <Player player={player as PlayerType} key={player.maskUUID} />
-      ))}
+      {mainSnap.players
+        .filter(player => player.found === false)
+        .map(player => (
+          <Player player={player as PlayerType} key={player.maskUUID} />
+        ))}
     </PlayingfieldWrapper>
   )
 }

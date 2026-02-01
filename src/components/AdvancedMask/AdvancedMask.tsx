@@ -14,19 +14,18 @@ export interface AdvancedMaskProps {
   position: Vec2
   maskDefinition: MaskDefinition
   wrongPersonTrigger?: () => void
-  rightPersonTrigger?: () => void
+  found?: boolean
 }
 
 const AdvancedMask: FC<AdvancedMaskProps> = ({
   position,
   maskDefinition,
   wrongPersonTrigger,
-  rightPersonTrigger,
+  found,
 }) => {
   const [delayedPositionUpdate, setDelayedPositionUpdate] = useState(new Vec2())
 
   const [headshake, setHeadshake] = useState(false)
-  const [dead, setDead] = useState(false)
 
   useEffect(() => {
     const timeout = setTimeout(
@@ -46,13 +45,6 @@ const AdvancedMask: FC<AdvancedMaskProps> = ({
     }, 1000)
   }, [wrongPersonTrigger])
 
-  useEffect(() => {
-    setDead(true)
-    setTimeout(() => {
-      setDead(false)
-    }, 1000)
-  }, [rightPersonTrigger])
-
   return (
     <AdvancedMaskWrapper
       style={{
@@ -60,7 +52,11 @@ const AdvancedMask: FC<AdvancedMaskProps> = ({
       }}
     >
       <div
-        className={[headshake ? 'headshake' : '', dead ? 'dead' : ''].join(' ')}
+        className={[
+          'found-transition',
+          headshake ? 'headshake' : '',
+          found ? 'found' : '',
+        ].join(' ')}
       >
         <Mask maskDefinition={maskDefinition} />
       </div>

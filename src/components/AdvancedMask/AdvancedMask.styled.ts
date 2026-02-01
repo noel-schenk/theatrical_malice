@@ -30,29 +30,15 @@ export const AdvancedMaskWrapper = styled.div`
     animation: headshake 1s ease-in-out;
   }
 
-  @keyframes dead {
-    0% {
-      transform: scale(1) rotate(0deg);
-      opacity: 1;
-      filter: blur(0);
-    }
-    20% {
-      transform: scale(1.2) rotate(5deg);
-      filter: blur(0);
-    }
-    40% {
-      transform: scale(1.5) rotate(-3deg) translateY(-10px);
-      opacity: 0.8;
-      filter: blur(1px);
-    }
-    100% {
-      transform: scale(3) rotate(15deg) translateY(-50px);
-      opacity: 0;
-      filter: blur(8px);
-    }
+  .found-transition {
+    transition: all 0.5s ease-out;
+    transform: scale(1) rotate(0deg) translateY(0px);
+    opacity: 1;
+    filter: blur(0px);
   }
-
-  .dead {
-    animation: dead 0.5s ease-out forwards;
+  .found {
+    /* transform: scale(3) rotate(15deg) translateY(-50px);
+    opacity: 0;
+    filter: blur(8px); */
   }
 `

@@ -9,7 +9,15 @@ interface ScreenProps {}
 const Screen: FC<ScreenProps> = () => {
   return (
     <ScreenWrapper>
-      <TransformWrapper centerOnInit limitToBounds minScale={0.3}>
+      <TransformWrapper
+        centerOnInit
+        limitToBounds
+        minScale={0.2}
+        maxScale={0.6}
+        smooth={false}
+        velocityAnimation={{ disabled: true }}
+        zoomAnimation={{ disabled: true }}
+      >
         <TransformComponent
           wrapperStyle={{ width: '100dvw', height: '100dvh' }}
         >
