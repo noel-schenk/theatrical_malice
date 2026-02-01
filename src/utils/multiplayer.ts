@@ -22,6 +22,10 @@ export const gameHasStarted = () => {
 const gameHasFinished = (wonPlayerUUID: string) => {
   if (mainState.playerUUID === wonPlayerUUID) mainState.showNavigation = 'won'
   else mainState.showNavigation = 'lost'
+
+  mainState.winner =
+    mainState.players.find(player => player.playerUUID === wonPlayerUUID)
+      ?.name ?? ''
 }
 
 export const playerFound = (playerUUID: string, seekerPlayerUUID: string) => {
