@@ -1,7 +1,6 @@
 import type { MaskDefinition } from '@/models/MaskDefinition'
 
 import { type FC, useEffect, useState } from 'react'
-import { useUpdate } from 'react-use'
 
 import { random } from 'lodash-es'
 
@@ -15,6 +14,7 @@ export interface AdvancedMaskProps {
   maskDefinition: MaskDefinition
   wrongPersonTrigger?: () => void
   found?: boolean
+  flashTrigger?: () => void
 }
 
 const AdvancedMask: FC<AdvancedMaskProps> = ({
@@ -22,10 +22,13 @@ const AdvancedMask: FC<AdvancedMaskProps> = ({
   maskDefinition,
   wrongPersonTrigger,
   found,
+  flashTrigger,
 }) => {
   const [delayedPositionUpdate, setDelayedPositionUpdate] = useState(new Vec2())
 
   const [headshake, setHeadshake] = useState(false)
+
+  const [flash, setFlash] = useState(false)
 
   useEffect(() => {
     const timeout = setTimeout(
@@ -45,6 +48,13 @@ const AdvancedMask: FC<AdvancedMaskProps> = ({
     }, 1000)
   }, [wrongPersonTrigger])
 
+  useEffect(() => {
+    setFlash(true)
+    setTimeout(() => {
+      setFlash(false)
+    }, 2000)
+  }, [flashTrigger])
+
   return (
     <AdvancedMaskWrapper
       style={{
@@ -53,6 +63,7 @@ const AdvancedMask: FC<AdvancedMaskProps> = ({
     >
       <div
         className={[
+          flash ? 'animate-pulsate' : '',
           'found-transition',
           headshake ? 'headshake' : '',
           found ? 'found' : '',

@@ -34,6 +34,7 @@ export const playerFound = (playerUUID: string, seekerPlayerUUID: string) => {
 
   mainState.players = mainState.players.map(player => {
     if (player.playerUUID === playerUUID) player.found = true
+    if (player.playerUUID === seekerPlayerUUID) player.skipFlash = true
     return player
   })
 
@@ -123,6 +124,10 @@ const onGameHasFinished = (playerUUID: string) => {
   gameHasFinished(playerUUID)
 }
 
+export const onFlashPlayers = (playerUUIDList: string[]) => {
+  mainState.flashPlayers = playerUUIDList
+}
+
 const partyListener = () => {
   if (isNil(partyData.partySocket)) return
   partyData.partySocket.addEventListener('message', e => {
@@ -148,6 +153,10 @@ const partyListener = () => {
         break
       case 'game_finished':
         onGameHasFinished(data.playerUUID)
+        break
+      case 'flash_players':
+        onFlashPlayers(data.playerUUIDList)
+        break
     }
   })
 }
@@ -228,6 +237,25 @@ export const requestFoundPlayer = (playerUUID: string) => {
     })
   )
   playerFound(playerUUID, mainState.playerUUID)
+}
+
+export const flashPlayers = () => {
+  if (!mainState.isHost) return
+  if (isNil(partyData.partySocket)) return
+
+  const playerUUIDsWithoutFlashSkip = mainState.players
+    .filter(player => player.skipFlash === false && !isNil(player.playerUUID))
+    .map(player => player.playerUUID ?? '')
+
+  onFlashPlayers(playerUUIDsWithoutFlashSkip)
+
+  console.log('flashPlayers')
+  partyData.partySocket.send(
+    encode({
+      type: 'flash_players',
+      playerUUIDList: playerUUIDsWithoutFlashSkip,
+    })
+  )
 }
 
 const gameFinished = (playerUUID: string) => {

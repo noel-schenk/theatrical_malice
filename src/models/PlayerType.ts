@@ -6,6 +6,7 @@ export class PlayerType {
     public maskUUID: string,
     public playerUUID?: string,
     public found: boolean = false,
-    public name: string = ''
+    public name: string = '',
+    public skipFlash: boolean = false
   ) {}
 }
