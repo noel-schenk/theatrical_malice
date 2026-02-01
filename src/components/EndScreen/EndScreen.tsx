@@ -18,7 +18,7 @@ const EndScreen: FC<EndScreenProps> = () => {
       <div className="absolute z-50 flex flex-wrap gap-4 p-4 w-full h-full shrink">
         <Card className="grow">
           <CardContent>
-            <div className="flex flex-col gap-4 items-center text-center max-h-[500]">
+            <div className="flex flex-col gap-4 items-center text-center max-h-[500] overflow-scroll">
               <div className="typography">
                 <h1>Game over</h1>
                 <p>The winner is</p>
