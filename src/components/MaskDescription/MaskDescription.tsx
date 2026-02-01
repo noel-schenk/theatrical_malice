@@ -28,7 +28,7 @@ console.log(props.maskDefinition.name)
     <ul>
       {props.maskDefinition.features.map((feature, index) => 
          <li key={index}>
-            <div><img src={feature.url}></img>{getDescriptionsFor(feature.type)[feature.name]}<br/>{resolvePosition(feature.position)}</div>
+            <div><img src={feature.url}></img>{getDescriptionsFor(feature.type)[feature.name]} {resolvePosition(feature.position)}</div>
          </li>
       )}
     </ul>
