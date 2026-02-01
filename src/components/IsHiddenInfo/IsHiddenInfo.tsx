@@ -2,7 +2,7 @@ import { mainState } from '@/state/mainState'
 
 import type { FC } from 'react'
 
-import { HatGlasses } from 'lucide-react'
+import { HatGlasses, Hourglass } from 'lucide-react'
 import { useSnapshot } from 'valtio'
 
 import { Badge } from '../ui/badge'
@@ -16,14 +16,23 @@ const IsHiddenInfo: FC<IsHiddenInfoProps> = () => {
 
   return (
     <IsHiddenInfoWrapper className="fixed top-8 right-10">
-      {mainSnap.players.find(
-        player => player.playerUUID === mainSnap.playerUUID
-      )?.skipFlash && (
-        <Badge variant="destructive">
-          <HatGlasses />
-          You're hidden
-        </Badge>
-      )}
+      <div className="flex gap-4">
+        {mainSnap.waitForNextClick && (
+          <Badge variant="destructive">
+            <Hourglass />
+            Wait for your next guess
+          </Badge>
+        )}
+
+        {mainSnap.players.find(
+          player => player.playerUUID === mainSnap.playerUUID
+        )?.skipFlash && (
+          <Badge variant="destructive">
+            <HatGlasses />
+            You're hidden
+          </Badge>
+        )}
+      </div>
     </IsHiddenInfoWrapper>
   )
 }

@@ -121,7 +121,7 @@ const PartyWaitingroom: FC<PartyWaitingroomProps> = () => {
 
                       setInterval(() => {
                         flashPlayers()
-                      }, 6000)
+                      }, 8000)
                     }}
                   >
                     Start

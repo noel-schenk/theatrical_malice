@@ -53,6 +53,13 @@ const Player: FC<PlayerProps> = ({ player }) => {
     <PlayerWrapper>
       <div
         onClick={() => {
+          if (mainState.waitForNextClick) return
+
+          mainState.waitForNextClick = true
+          setTimeout(() => {
+            mainState.waitForNextClick = false
+          }, 4000)
+
           if (mainState.playerUUID === player.playerUUID)
             return toast('Silly you clicked on yourself :)')
 
